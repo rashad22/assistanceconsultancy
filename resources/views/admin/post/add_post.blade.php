@@ -1,6 +1,8 @@
 @extends('admin.master')
 
 @section('content')
+<link rel="stylesheet" href="{{asset('admin/css/pages/blog.css')}}" />
+<link href="{{asset('admin/vendors/bootstrap-wysihtml5-rails-b3/src/bootstrap-wysihtml5.css')}}" rel="stylesheet" type="text/css" />
 <aside class="right-side">
     <section class="content-header">
         <h1>{{$data['title']}}</h1>
@@ -19,56 +21,81 @@
         <div class="col-md-12">
             <!--md-6 starts-->
             <!--form control starts-->
-            <div class="panel panel-success" id="hidepanel6">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <i class="livicon" data-name="share" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Add New Page
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <?php if($errors->first('post_title')||$errors->first('post_details')){?>
+            <section class="content paddingleft_right15">
+            <?php if($errors->first('post_name')||$errors->first('post_title')||$errors->first('post_details')){?>
                     <div class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                       {{$errors->first('post_name')}}
                        {{$errors->first('post_title')}}
                        {{$errors->first('post_dtails')}}
                     </div>
-                        <?php }?> 
-                    <form role="form" action="save" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label>Post Title</label>
-                                <input class="form-control" name="post_title" id="post_title">
-                                <p class="help-block">Example block-level help text here.</p>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Post Details</label>
-                                <textarea class="form-control" rows="3" name="post_details" id="post_details"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="header">
-                                <h4>Featured Image</h4>
-                            </div>
-                            <div class="form-group">
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img data-src="holder.js/100%x100%" alt="...">
+                        <?php }?>
+                <!--main content-->
+                <div class="row">
+                    <div class="the-box no-border">
+                        <form role="form" action="save" method="post">
+                        <input type="hidden" name="_token" value="<?php echo csrf_token();?>"/>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <input type="text" name="post_name" id="post_name" class="form-control input-lg" placeholder="Post sort title here...">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="post_title" id="post_title" class="form-control input-lg" placeholder="Post title here...">
+                                    </div>
+                                    <div class='box-body pad'>
+                                            <textarea class="textarea" name="post_details" id="post_details" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                      
+                                    </div>
+                                </div>
+                                <!-- /.col-sm-8 -->
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Post category</label>
+                                        <input type="text" name="post_category" id="post_category" class="form-control" placeholder="Post category">
                                     </div>
                                     
-                                            <input type="file" name="file">
+                                    <div class="form-group">
+                                        <label>Featured image</label>
+                                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                                            <span class="btn btn-primary btn-file">
+                                                <span class="fileupload-new">Select file</span>
+                                                <span class="fileupload-exists">Change</span>
+                                                <input type="file" />
+                                            </span>
+                                            <span class="fileupload-preview"></span>
+                                            <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">Save and post</button>
+                                        <button type="reset" class="btn btn-danger">Discard</button>
+                                    </div>
                                 </div>
+                                <!-- /.col-sm-4 -->
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-responsive btn-default">Submit</button>
-                        <button type="reset" class="btn btn-responsive btn-default">Reset</button>
-                    </form>
+                            <!-- /.row -->
+                        </form>
+                    </div>
                 </div>
-            </div>
+                <!--main content ends-->
+            </section>
+
+
+
         </div>
     </section>
+    <script src="{{ asset('admin/vendors/holder-master/holder.js') }}" type="text/javascript"></script>
+        <script type="text/javascript" src="{{ asset('admin/vendors/bootstrap-wysihtml5-rails-b3/vendor/assets/javascripts/bootstrap-wysihtml5/wysihtml5.js') }}"></script>
+    <script type="text/javascript" src="{{asset('admin/vendors/bootstrap-wysihtml5-rails-b3/vendor/assets/javascripts/bootstrap-wysihtml5/core-b3.js')}}"></script>
+<script type="text/javascript">
+    $(function() {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
 
+        //bootstrap WYSIHTML5 - text editor
+        $(".textarea").wysihtml5();
+    });
+    </script>
 </aside>
 @endsection

@@ -21,6 +21,7 @@
         <link href="{{ asset('admin/css/metisMenu.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('admin/css/custom_style.css') }}" rel="stylesheet" type="text/css"/>
         <!-- end of global css -->
+        <script src="{{ asset('admin/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
         <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -239,7 +240,7 @@
                         <div class="clearfix"></div>
                         <!-- BEGIN SIDEBAR MENU -->
                         <ul id="menu" class="page-sidebar-menu">
-                            <li>
+                            <li class="{{$data['active']=='dashboard'?'active':''}}">
                                 <a href="index.html">
                                     <i class="livicon" data-name="home" data-size="18" data-c="#418BCA" data-hc="#418BCA" data-loop="true"></i>
                                     <span class="title">Dashboard</span>
@@ -268,10 +269,10 @@
 
                                 </ul>
                             </li>
-                            <li>
-                                <a href="blank.html">
+                            <li class="{{$data['meta']=='menu'?'active':''}}">
+                                <a href="\menu">
                                     <i class="fa fa-angle-double-right"></i>
-                                    Blank Page
+                                    Menu
                                 </a>
                             </li>
                         </ul>
@@ -286,14 +287,14 @@
             <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
         </a>
         <!-- global js -->
-        <script src="{{ asset('admin/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+        
         <script src="{{ asset('admin/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <!--livicons-->
         <script src="{{ asset('admin/vendors/livicons/minified/raphael-min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('admin/vendors/livicons/minified/livicons-1.4.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('admin/js/josh.js') }}" type="text/javascript"></script>
         <script src="{{ asset('admin/js/metisMenu.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('admin/vendors/holder-master/holder.js') }}" type="text/javascript"></script>
+        
         <!-- end of global js -->
     </body>
 </html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Assistance Consultancy</title>
+        <title>{{ config('app.name', 'Laravel').'-'.$data['title'] }}</title>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -29,19 +30,19 @@
         <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
-        <link rel="stylesheet" href="website/bower_components/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="{{asset('website/bower_components/font-awesome/css/font-awesome.min.css')}}" />
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="website/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{asset('website/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
 
         <!-- Bootstrap Material Design -->
-        <link rel="stylesheet" href="website/bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
-        <link rel="stylesheet" href="website/bower_components/bootstrap-material-design/dist/css/ripples.min.css">
+        <link rel="stylesheet" href="{{asset('website/bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css')}}">
+        <link rel="stylesheet" href="{{asset('website/bower_components/bootstrap-material-design/dist/css/ripples.min.css')}}">
 
-        <link rel="stylesheet" href="website/css/style.css" />
+        <link rel="stylesheet" href="{{asset('website/css/style.css')}}" />
 
         <!-- jQuery -->
-        <script src="website/bower_components/jQuery/dist/jquery.min.js"></script>
+        <script src="{{asset('website/bower_components/jQuery/dist/jquery.min.js')}}"></script>
 
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -62,10 +63,10 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand visible-md visible-lg" href="/.">
-                            <img src="website/images/logo.png" alt="Assistency Consultancy" title="Assistency Consultancy" />
+                            <img src="{{asset('website/images/logo.png')}}" alt="Assistency Consultancy" title="Assistency Consultancy" />
                         </a>
                         <a class="navbar-brand visible-xs visible-sm" href="/.">
-                            <img src="website/images/logo_mobile.png" alt="Assistency Consultancy" title="Assistency Consultancy" />
+                            <img src="{{asset('website/images/logo_mobile.png')}}" alt="Assistency Consultancy" title="Assistency Consultancy" />
                         </a>
                     </div>
 
@@ -77,10 +78,10 @@
                             </ul>
                         </div>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="index.php">Home</a></li>
-                            <li><a href="about.php">About</a></li>
-                            <li><a href="services.php">Services</a></li>
-                            <li><a href="contact.php">Contacts</a></li>
+                            <li class="{{($data['meta'])=='home'?'active':''}}"><a href="\index">Home</a></li>
+                            <?php foreach($data['main_menu'] as $menu){?>
+                            <li class="{{($data['meta'])=="$menu->post_slug"?'active':''}}"><a href="\page/{{$menu->post_slug}}/{{$menu->post_id}}">{{$menu->post_name}}</a></li>
+                            <?php }?>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -174,11 +175,11 @@
         </footer>
 
         <!-- JS for Twitter Bootstrap -->
-        <script src="website/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="{{asset('website/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
         <!-- Material Design for Bootstrap -->
-        <script src="website/bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
-        <script src="website/bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+        <script src="{{asset('website/bower_components/bootstrap-material-design/dist/js/material.min.js')}}"></script>
+        <script src="{{asset('website/bower_components/bootstrap-material-design/dist/js/ripples.min.js')}}"></script>
 
         <!-- Placeholder JS-->
         <script>

@@ -58,6 +58,7 @@ class post extends Controller {
         $post = $data->all();
 
         $v = \Validator::make($data->all(), [
+                    'post_name' => 'required|max:100|unique:post',
                     'post_title' => 'required|max:255|unique:post',
                     'post_details' => 'required',
         ]);
@@ -66,10 +67,10 @@ class post extends Controller {
         } else {
             $data_arr = array(
                 'post_title' => $data->input('post_title'),
-                'post_name' => $data->input('post_title'),
+                'post_name' => $data->input('post_name'),
                 'post_content' => $data->input('post_details'),
                 'post_type' => 1,
-                'post_slug' => $data->input('post_title'),
+                'post_slug' => preg_replace('/  */', '-', $data->input('post_name')),
                 'post_author' => 1,
                 'post_datetime' => date('Y-m-d h:i:s'),
                 'remember_token' => $data->input('_token'),
@@ -90,6 +91,13 @@ class post extends Controller {
      */
     public function show($id) {
         //
+        $data= array(
+            'title' =>'Post Details',
+            'active' =>'Post',
+            'meta' => 'all Post'
+            );
+        $data['row'] = DB::table('post')->where('post_id', $id)->first();
+        return view('admin/post/post_details')->with('data', $data);
     }
 
     /**
@@ -101,9 +109,9 @@ class post extends Controller {
     public function edit($id) {
         //
         $data= array(
-            'title' =>'Add Post',
+            'title' =>'Edit Post',
             'active' =>'Post',
-            'meta' => 'new Post'
+            'meta' => 'all Post'
             );
         $data['row'] = DB::table('post')->where('post_id', $id)->first();
         return view('admin/post/edit_post')->with('data', $data);
@@ -120,6 +128,7 @@ class post extends Controller {
         //
         $post = $data->all();
         $v = \Validator::make($data->all(), [
+                    'post_name' => 'required|max:100',
                     'post_title' => 'required|max:255',
                     'post_details' => 'required',
         ]);
@@ -128,7 +137,7 @@ class post extends Controller {
         } else {
             $data_arr = array(
                 'post_title' => $data->input('post_title'),
-                'post_name' => $data->input('post_title'),
+                'post_name' => $data->input('post_name'),
                 'post_content' => $data->input('post_details'),
                 'post_type' => 1,
                 'post_slug' => $data->input('post_title'),
@@ -158,6 +167,56 @@ class post extends Controller {
             session::flash('message', 'Record Removed');
                 return redirect('all-post');
         }
+    }
+
+    public function menu(){
+        $data= array(
+            'title' =>'Menu',
+            'active' =>'menu',
+            'meta' => 'menu'
+            );
+        $all_menu = array();
+        $active_menu = array();
+        $post_list = DB::table('post')->where('post_status', 1)->get()->toArray();;
+        $active_menu_ids = DB::table('option_meta')->where('meta_key', 'menu_page_ids')->first()->meta_value;
+        
+        if($active_menu_ids!='N;'){
+        $menu_item = unserialize($active_menu_ids);
+        foreach ($post_list as $key => $value) {
+            if(in_array($value->post_id,$menu_item)){
+                array_push($active_menu,$value);
+            }else{
+                array_push($all_menu,$value);
+
+            }
+        }
+        $data['post_list'] =$all_menu;
+       $data['active_menu'] =$active_menu;
+        }else{
+            $data['post_list'] =$post_list;
+            $data['active_menu'] =array();
+        }
+        //$all_post_ids = array_intersect(array_column($data['post_list'], 'post_id'), $menu_item);
+       
+        return view('admin/menu')->with('data', $data);
+    }
+    public function menu_update(Request $data){
+        $data_arr = array(
+            'opt_id'=>1,
+            'meta_key'=>'menu_page_ids',
+            'meta_value'=>serialize($data->input('menu_item'))
+            );
+        $exist_menu = DB::table('option_meta')->where(array('opt_id'=> $data_arr['opt_id'],'meta_key'=>$data_arr['meta_key']))->first();
+        if($exist_menu){
+            $q = DB::table('option_meta')->where('meta_id', $exist_menu->meta_id)->update($data_arr);
+        }else{
+            $q = DB::table('option_meta')->insert($data_arr);
+        }
+
+            if ($q > 0) {
+                session::flash('message', 'Menu Updated');
+                return redirect('menu');
+            }
     }
 
 }

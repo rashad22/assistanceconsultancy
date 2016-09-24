@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-class postModel extends Model
+
+class siteModel extends Model
 {
     //
     protected $table = 'post';
