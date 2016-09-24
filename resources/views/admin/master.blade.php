@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel').'-'.$data['title'] }}</title>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -13,20 +13,25 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
         <!-- global css -->
-        <link href="admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- font Awesome -->
-        <link href="admin/vendors/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="admin/css/styles/black.css" rel="stylesheet" type="text/css" id="colorscheme" />
-        <link href="admin/css/panel.css" rel="stylesheet" type="text/css"/>
-        <link href="admin/css/metisMenu.css" rel="stylesheet" type="text/css"/>
-
+        <link href="{{ asset('admin/vendors/font-awesome-4.2.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('admin/css/styles/black.css') }}" rel="stylesheet" type="text/css" id="colorscheme" />
+        <link href="{{ asset('admin/css/panel.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('admin/css/metisMenu.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('admin/css/custom_style.css') }}" rel="stylesheet" type="text/css"/>
         <!-- end of global css -->
+        <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
     </head>
 
     <body class="skin-josh">
         <header class="header">
             <a href="index.html" class="logo">
-                <img src="admin/img/logo.png" alt="logo">
+                <img src="{{ asset('admin/img/logo.png') }}" alt="logo">
             </a>
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -241,23 +246,29 @@
                                 </a>
 
                             </li>
-                            <li>
+                            <li class="{{$data['active']=='Post'?'active':''}}">
                                 <a href="#">
                                     <i class="livicon" data-name="medal" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
                                     <span class="title">Post</span>
                                     <span class="fa arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li>
+                                    <li class="{{$data['meta']=='new Post'?'active':''}}">
                                         <a href="{{'\new-post'}}">
                                             <i class="fa fa-angle-double-right"></i>
                                             Add New Post
                                         </a>
                                     </li>
+                                    <li class="{{$data['meta']=='all Post'?'active':''}}">
+                                        <a href="{{'\all-post'}}">
+                                            <i class="fa fa-angle-double-right"></i>
+                                            All Post
+                                        </a>
+                                    </li>
 
                                 </ul>
                             </li>
-                            <li class="active" id="active">
+                            <li>
                                 <a href="blank.html">
                                     <i class="fa fa-angle-double-right"></i>
                                     Blank Page
@@ -275,14 +286,14 @@
             <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
         </a>
         <!-- global js -->
-        <script src="admin/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-        <script src="admin/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="{{ asset('admin/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('admin/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <!--livicons-->
-        <script src="admin/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
-        <script src="admin/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
-        <script src="admin/js/josh.js" type="text/javascript"></script>
-        <script src="admin/js/metisMenu.js" type="text/javascript"></script>
-        <script src="admin/vendors/holder-master/holder.js" type="text/javascript"></script>
+        <script src="{{ asset('admin/vendors/livicons/minified/raphael-min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('admin/vendors/livicons/minified/livicons-1.4.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('admin/js/josh.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('admin/js/metisMenu.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('admin/vendors/holder-master/holder.js') }}" type="text/javascript"></script>
         <!-- end of global js -->
     </body>
 </html>

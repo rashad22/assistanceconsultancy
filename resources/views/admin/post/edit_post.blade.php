@@ -23,29 +23,31 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <i class="livicon" data-name="share" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Add New Page
+                        Edit Post
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <?php if($errors->first('post_title')||$errors->first('post_details')){?>
+                <?php if($errors->first('post_title')||$errors->first('post_details')){?>
                     <div class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                        {{$errors->first('post_title')}}
                        {{$errors->first('post_dtails')}}
                     </div>
-                        <?php }?> 
-                    <form role="form" action="save" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                        <?php }?>
+                    
+                    <form role="form" action="\update" method="post">
+                        <input type="hidden" name="id" value="<?php echo $data['row']->post_id?>"/>
+                        <input type="hidden" name="_token" value="<?php echo csrf_token();?>"/>
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label>Post Title</label>
-                                <input class="form-control" name="post_title" id="post_title">
+                                <input class="form-control" name="post_title" id="post_title" value="{{$data['row']->post_title}}" />
                                 <p class="help-block">Example block-level help text here.</p>
                             </div>
 
                             <div class="form-group">
                                 <label>Post Details</label>
-                                <textarea class="form-control" rows="3" name="post_details" id="post_details"></textarea>
+                                <textarea class="form-control" rows="3" name="post_details" id="post_details">{{$data['row']->post_content}}</textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
