@@ -33,7 +33,7 @@
                 <!--main content-->
                 <div class="row">
                     <div class="the-box no-border">
-                        <form role="form" action="save" method="post">
+                        <form role="form" action="save" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="<?php echo csrf_token();?>"/>
                             <div class="row">
                                 <div class="col-sm-8">
@@ -61,7 +61,7 @@
                                             <span class="btn btn-primary btn-file">
                                                 <span class="fileupload-new">Select file</span>
                                                 <span class="fileupload-exists">Change</span>
-                                                <input type="file" />
+                                                <input type="file" name="file" />
                                             </span>
                                             <span class="fileupload-preview"></span>
                                             <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>

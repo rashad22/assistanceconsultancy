@@ -9,7 +9,7 @@ use DB;
 use Session;
 use Illuminate\Pagination;
 use Illuminate\Http\UploadedFile;
-use Input;
+use Illuminate\Support\Facades\Input;
 
 class post extends Controller {
 
@@ -65,6 +65,16 @@ class post extends Controller {
         if ($v->fails()) {
             return redirect()->back()->withErrors($v->errors());
         } else {
+
+            $image = Input::file('file');
+                $destinationPath = 'uploads/';
+                $filename = str_random(15);
+                $extension = $image->getClientOriginalExtension();
+                $imagefullname = $filename . '.' . $extension;
+                $imagewithurl = "uploads/" . $imagefullname;
+                $success = Input::file('file')->move($destinationPath, $imagefullname);
+                
+
             $data_arr = array(
                 'post_title' => $data->input('post_title'),
                 'post_name' => $data->input('post_name'),
