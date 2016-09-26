@@ -51,8 +51,11 @@
                                 <!-- /.col-sm-8 -->
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Post category</label>
-                                        <input type="text" name="post_category" id="post_category" class="form-control" placeholder="Post category">
+                                        <label>Post Type</label>
+                                        <select class="form-control" name="post_type" id="post_type">
+                                            <option value="1">Page</option>
+                                            <option value="2">Service</option>
+                                        </select>
                                     </div>
                                     
                                     <div class="form-group">

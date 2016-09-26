@@ -31,9 +31,9 @@
                             <p>
                                 <span class="label label-danger square">{{$data['row']->post_datetime}}</span>
                             </p>
-                            <p class="text-justify">
+                            <div class="text-justify">
                                 {{$data['row']->post_content}}
-                            </p>
+                            </div>
                             
                             
                         </div>
@@ -43,12 +43,11 @@
                     <div class="col-sm-4 col-md-3 col-full-width-left">
                         <div class="the-box bg-primary no-border text-center no-margin more-padding">
                             <h4 style="color:black">Fitured Image</h4>
-                            <h2>
-                                <a href="">
-                                    Fitured Image Here
-                                </a>
-                            </h2>
-                            <p>April 2l, 2014</p>
+                            <?php if(isset($data['post_featured_image'])){?>
+            
+                <img src="<?php echo asset($data['post_featured_image']->med_path.$data['post_featured_image']->med_name);?>" class="img-responsive" alt="" />
+            
+            <?php }?>
                             <button class="btn btn-primary btn-block">Read more</button>
                         </div>
                         

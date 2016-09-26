@@ -35,7 +35,14 @@ public function __construct() {
             'meta' => 'home',
             'main_menu' =>$GLOBALS['main_menu']
             );
-
+$data['content'] = DB::table('post')->where('post_type',2)->paginate(3);
+            foreach ($data['content'] as $key => &$value) {
+                $meta = DB::table('post_meta')->where(array('post_id'=>$value->post_id,'meta_key'=>'post_featured_image'))->first();
+                if($meta){
+                    
+            $value->post_featured_image = DB::table('media')->where('med_id',$meta->meta_value)->first();
+            }
+            }
         //return view('admin/post/post')->with('data',$data);
         return view('website/index')->with('data',$data);
     }
@@ -106,9 +113,34 @@ public function __construct() {
             'meta' => $slug,
             'main_menu' =>$GLOBALS['main_menu']
             );
-$data['content'] = DB::table('post')->where('post_id',$id)->first();
+            $data['content'] = DB::table('post')->where('post_id',$id)->first();
+            $meta = DB::table('post_meta')->where(array('post_id'=>$id,'meta_key'=>'post_featured_image'))->first();
+            if($meta){
+            $data['content_meta'] = DB::table('media')->where('med_id',$meta->meta_value)->first();
+            }
+
         //return view('admin/post/post')->with('data',$data);
         return view('website/dynamic_page')->with('data',$data);
     }
+
+    public function services() {
+        $data= array(
+            'title' =>'Services',
+            'active' =>'services',
+            'meta' => 'services',
+            'main_menu' =>$GLOBALS['main_menu']
+            );
+            $data['content'] = DB::table('post')->where('post_type',2)->get();
+            foreach ($data['content'] as $key => &$value) {
+                $meta = DB::table('post_meta')->where(array('post_id'=>$value->post_id,'meta_key'=>'post_featured_image'))->first();
+                if($meta){
+                    
+            $value->post_featured_image = DB::table('media')->where('med_id',$meta->meta_value)->first();
+            }
+            }
+        //return view('admin/post/post')->with('data',$data);
+        return view('website/all_services')->with('data',$data);
+    }
+
 
 }

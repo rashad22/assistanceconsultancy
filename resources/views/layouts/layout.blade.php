@@ -79,6 +79,7 @@
                         </div>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="{{($data['meta'])=='home'?'active':''}}"><a href="\index">Home</a></li>
+                            <li class="{{($data['meta'])=='services'?'active':''}}"><a href="\services">Service</a></li>
                             <?php foreach($data['main_menu'] as $menu){?>
                             <li class="{{($data['meta'])=="$menu->post_slug"?'active':''}}"><a href="\page/{{$menu->post_slug}}/{{$menu->post_id}}">{{$menu->post_name}}</a></li>
                             <?php }?>

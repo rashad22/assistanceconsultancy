@@ -67,6 +67,7 @@ class post extends Controller {
         } else {
 
             $image = Input::file('file');
+            if($image){
                 $destinationPath = 'uploads/';
                 $filename = str_random(15);
                 $extension = $image->getClientOriginalExtension();
@@ -74,22 +75,38 @@ class post extends Controller {
                 $imagewithurl = "uploads/" . $imagefullname;
                 $success = Input::file('file')->move($destinationPath, $imagefullname);
                 
-
+                $media_arr = array(
+                    'med_name'=>$imagefullname,
+                    'med_caption'=>'',
+                    'med_description'=>'',
+                    'med_path'=>$destinationPath,
+                    'created_at'=>date('Y-m-d h:i:s')
+                    );
+                $med_id = DB::table('media')->insertGetId($media_arr);
+            }
             $data_arr = array(
                 'post_title' => $data->input('post_title'),
                 'post_name' => $data->input('post_name'),
                 'post_content' => $data->input('post_details'),
-                'post_type' => 1,
+                'post_type' => $data->input('post_type'),
                 'post_slug' => preg_replace('/  */', '-', $data->input('post_name')),
                 'post_author' => 1,
                 'post_datetime' => date('Y-m-d h:i:s'),
                 'remember_token' => $data->input('_token'),
             );
-            $q = DB::table('post')->insert($data_arr);
-            if ($q > 0) {
-                session::flash('message', 'Record added');
-                return redirect('all-post');
+            $post_id = DB::table('post')->insertGetId($data_arr);
+            
+            if ($image&&$post_id > 0) {
+                $meta_arr = array(
+                    'meta_key'=>'post_featured_image',
+                    'post_id'=>$post_id,
+                    'meta_value'=>$med_id,
+                    );
+                DB::table('post_meta')->insert($meta_arr);
+                
             }
+            session::flash('message', 'Record added');
+                return redirect('all-post');
         }
     }
 
@@ -107,6 +124,10 @@ class post extends Controller {
             'meta' => 'all Post'
             );
         $data['row'] = DB::table('post')->where('post_id', $id)->first();
+        $meta = DB::table('post_meta')->where(array('post_id'=>$id,'meta_key'=>'post_featured_image'))->first();
+        if($meta){
+            $data['post_featured_image'] = DB::table('media')->where('med_id',$meta->meta_value)->first();
+        }
         return view('admin/post/post_details')->with('data', $data);
     }
 
@@ -124,6 +145,10 @@ class post extends Controller {
             'meta' => 'all Post'
             );
         $data['row'] = DB::table('post')->where('post_id', $id)->first();
+        $meta = DB::table('post_meta')->where(array('post_id'=>$id,'meta_key'=>'post_featured_image'))->first();
+        if($meta){
+            $data['post_featured_image'] = DB::table('media')->where('med_id',$meta->meta_value)->first();
+        }
         return view('admin/post/edit_post')->with('data', $data);
     }
 
@@ -145,23 +170,60 @@ class post extends Controller {
         if ($v->fails()) {
             return redirect()->back()->withErrors($v->errors());
         } else {
+            $image = Input::file('file');
+            if($image){
+
+                $destinationPath = 'uploads/';
+                $filename = str_random(15);
+                $extension = $image->getClientOriginalExtension();
+                $imagefullname = $filename . '.' . $extension;
+                $imagewithurl = "uploads/" . $imagefullname;
+                $success = Input::file('file')->move($destinationPath, $imagefullname);
+                
+                $media_arr = array(
+                    'med_name'=>$imagefullname,
+                    'med_caption'=>'',
+                    'med_description'=>'',
+                    'med_path'=>$destinationPath,
+                    'created_at'=>date('Y-m-d h:i:s')
+                    );
+                $med_id = DB::table('media')->insertGetId($media_arr);
+            }
             $data_arr = array(
                 'post_title' => $data->input('post_title'),
                 'post_name' => $data->input('post_name'),
                 'post_content' => $data->input('post_details'),
-                'post_type' => 1,
+                'post_type' => $data->input('post_type'),
                 'post_slug' => $data->input('post_title'),
                 'post_author' => 1,
                 'post_datetime' => date('Y-m-d h:i:s'),
                 'remember_token' => $data->input('_token'),
             );
             $q = DB::table('post')->where('post_id', $_POST['id'])->update($data_arr);
+            if ($image&&$q > 0) {
+                $meta_con = array(
+                    'meta_key'=>'post_featured_image',
+                    'post_id'=>$_POST['id']
+                    );
+                $meta_arr = array(
+                    'meta_key'=>'post_featured_image',
+                    'post_id'=>$_POST['id'],
+                    'meta_value'=>$med_id,
+                    );
+                $meta_check = DB::table('post_meta')->where($meta_con)->first();
+                if($meta_check){
+                DB::table('post_meta')->where($meta_con)->update($meta_arr);
 
-            if ($q > 0) {
-                session::flash('message', 'Record Updated');
-                return redirect('all-post');
+                }else{
+                DB::table('post_meta')->insert($meta_arr);
+
+                }
+                
             }
+            
         }
+        session::flash('message', 'Record Updated');
+                return redirect('all-post');
     }
 
     /**

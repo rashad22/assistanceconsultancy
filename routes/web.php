@@ -39,3 +39,5 @@ Route::resource('/save', 'post@store');
 Route::get('post-details/{id}', 'post@show');
 Route::get('menu/', 'post@menu');
 Route::post('menu-update', 'post@menu_update');
+
+Route::get('services/', 'site@services');

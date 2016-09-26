@@ -32,7 +32,7 @@
                 <!--main content-->
                 <div class="row">
                     <div class="the-box no-border">
-                        <form role="form" action="\update" method="post">
+                        <form role="form" action="\update" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="<?php echo csrf_token();?>"/>
                         <input type="hidden" name="id" value="<?php echo $data['row']->post_id?>"/>
 
@@ -53,17 +53,28 @@
                                 <!-- /.col-sm-8 -->
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Post category</label>
-                                        <input type="text" name="post_category" id="post_category" value="" class="form-control" placeholder="Post category">
+                                        <label>Post Type</label>
+                                        <select class="form-control" name="post_type" id="post_type">
+                                            <option value="1">Page</option>
+                                            <option value="2">Service</option>
+                                        </select>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label>Featured image</label>
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
+                                        <?php if(isset($data['post_featured_image'])){?>
+            
+            <div class="fileinput-new thumbnail">
+            <img src="<?php echo asset($data['post_featured_image']->med_path.$data['post_featured_image']->med_name);?>" alt="...">
+            </div>
+            <br/>
+            <?php }?>
+
                                             <span class="btn btn-primary btn-file">
                                                 <span class="fileupload-new">Select file</span>
                                                 <span class="fileupload-exists">Change</span>
-                                                <input type="file" />
+                                                <input type="file" name="file" />
                                             </span>
                                             <span class="fileupload-preview"></span>
                                             <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
