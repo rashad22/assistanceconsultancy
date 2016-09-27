@@ -42,7 +42,7 @@
         <link rel="stylesheet" href="{{asset('public/website/css/style.css')}}" />
 
         <!-- jQuery -->
-        <script src="{{asset('public/website/bower_components/jQuery/dist/jquery.min.js')}}"></script>
+        <script src="{{asset('public/website/bower_components/jQuery/jquery-1.11.1.min.js')}}"></script>
 
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -80,9 +80,9 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="{{($data['meta'])=='home'?'active':''}}"><a href="{{ URL::to('/') }}">Home</a></li>
                             <li class="{{($data['meta'])=='services'?'active':''}}"><a href="{{ URL::to('services') }}">Service</a></li>
-                            <?php foreach($data['main_menu'] as $menu){?>
-                            <li class="{{($data['meta'])=="$menu->post_slug"?'active':''}}"><a href="{{ URL::to('page') }}/{{$menu->post_slug}}/{{$menu->post_id}}">{{$menu->post_name}}</a></li>
-                            <?php }?>
+                            <?php foreach ($data['main_menu'] as $menu) { ?>
+                                <li class="{{($data['meta'])=="$menu->post_slug"?'active':''}}"><a href="{{ URL::to('page') }}/{{$menu->post_slug}}/{{$menu->post_id}}">{{$menu->post_name}}</a></li>
+                            <?php } ?>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -185,7 +185,7 @@
         <!-- Placeholder JS-->
         <script>
 
-            $.material.init();
+$.material.init();
         </script>
 
     </body>
