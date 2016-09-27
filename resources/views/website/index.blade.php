@@ -13,14 +13,14 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="website/images/slide-1.jpg" alt="...">
+                <img src="public/website/images/slide-1.jpg" alt="...">
                 <div class="carousel-caption">
                     <h2 class="big_text">Assistance in Bangladesh</h2>
                     <p>We are professional step by step guidance through the flat buy or sale or rent or management in Bangladesh. We are also able to assistant with Birth Certificate, Passport, National ID card, Power of attorney and Open a bank account in Bangladesh</p>
                 </div>
             </div>
             <div class="item">
-                <img src="website/images/slide-2.jpg" alt="...">
+                <img src="public/website/images/slide-2.jpg" alt="...">
                 <div class="carousel-caption">
                     <h2 class="big_text">Personal Services</h2>
                     <p>Birth Certificate <br />
@@ -40,7 +40,7 @@
                     <p>Download our official brochure.</p>
                 </div>
                 <div class="text_center_480 full_480 col-xs-4 col-sm-5 col-md-4 text-right">
-                    <a href="website/resources/brochure_2.pdf" download="BD Cosulting 3b Publication.pdf" class="btn btn-info btn-raised"><i class="fa fa-download"></i> Dowload</a>
+                    <a href="public/website/resources/brochure_2.pdf" download="BD Cosulting 3b Publication.pdf" class="btn btn-info btn-raised"><i class="fa fa-download"></i> Dowload</a>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@ if($key%3==0){
                     <h3>{{$service->post_title}}</h3>
                     <?php if(isset($service->post_featured_image)){?>
             
-                <img src="<?php echo asset($service->post_featured_image->med_path.$service->post_featured_image->med_name);?>" class="img-responsive" alt="" />
+                <img src="<?php echo asset('public/'.$service->post_featured_image->med_path.$service->post_featured_image->med_name);?>" class="img-responsive" alt="" />
             
             <?php }?>
                     <div class="caption">

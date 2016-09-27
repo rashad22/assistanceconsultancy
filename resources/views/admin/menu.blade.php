@@ -2,7 +2,7 @@
 
     @section('content')
     <aside class="right-side">
-    <link href="{{asset('admin/vendors/nestable_files/jquery.nestable.css')}}" rel="stylesheet" />
+    <link href="{{asset('public/admin/vendors/nestable_files/jquery.nestable.css')}}" rel="stylesheet" />
 
         <section class="content-header">
             <h1>{{$data['title']}}</h1>
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="dd" id="nestable_list_2">
-                                    <form action="\menu-update" method="post">
+                                    <form action="{{ URL::to('menu-update') }}" method="post">
                                     
                                         <ol class="dd-list">
 
@@ -87,8 +87,8 @@
                
             </div>
         </section>
-<script src="{{asset('admin/vendors/nestable_files/jquery.nestable.min.js')}}"></script>
-    <script src="{{asset('admin/vendors/nestable_files/ui-nestable.js')}}"></script>
+<script src="{{asset('public/admin/vendors/nestable_files/jquery.nestable.min.js')}}"></script>
+    <script src="{{asset('public/admin/vendors/nestable_files/ui-nestable.js')}}"></script>
     <script>
     jQuery(document).ready(function() {
         UINestable.init();

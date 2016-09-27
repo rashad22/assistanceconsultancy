@@ -13,15 +13,15 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
         <!-- global css -->
-        <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('public/admin/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- font Awesome -->
-        <link href="{{ asset('admin/vendors/font-awesome-4.2.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('admin/css/styles/black.css') }}" rel="stylesheet" type="text/css" id="colorscheme" />
-        <link href="{{ asset('admin/css/panel.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('admin/css/metisMenu.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('admin/css/custom_style.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('public/admin/vendors/font-awesome-4.2.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('public/admin/css/styles/black.css') }}" rel="stylesheet" type="text/css" id="colorscheme" />
+        <link href="{{ asset('public/admin/css/panel.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('public/admin/css/metisMenu.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('public/admin/css/custom_style.css') }}" rel="stylesheet" type="text/css"/>
         <!-- end of global css -->
-        <script src="{{ asset('admin/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('public/admin/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
         <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -32,7 +32,7 @@
     <body class="skin-josh">
         <header class="header">
             <a href="index.html" class="logo">
-                <img src="{{ asset('admin/img/logo.png') }}" alt="logo">
+                <img src="{{ asset('public/admin/img/logo.png') }}" alt="logo">
             </a>
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
@@ -255,13 +255,13 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="{{$data['meta']=='new Post'?'active':''}}">
-                                        <a href="{{'\new-post'}}">
+                                        <a href="{{ URL::to('new-post') }}">
                                             <i class="fa fa-angle-double-right"></i>
                                             Add New Post
                                         </a>
                                     </li>
                                     <li class="{{$data['meta']=='all Post'?'active':''}}">
-                                        <a href="{{'\all-post'}}">
+                                        <a href="{{ URL::to('all-post')}}">
                                             <i class="fa fa-angle-double-right"></i>
                                             All Post
                                         </a>
@@ -270,9 +270,14 @@
                                 </ul>
                             </li>
                             <li class="{{$data['meta']=='menu'?'active':''}}">
-                                <a href="\menu">
+                                <a href="{{ URL::to('menu') }}">
                                     <i class="fa fa-angle-double-right"></i>
                                     Menu
+                                </a>
+                            </li><li class="{{$data['meta']=='theme_option'?'active':''}}">
+                                <a href="{{ URL::to('theme-option') }}">
+                                    <i class="fa fa-angle-double-right"></i>
+                                    Theme Option
                                 </a>
                             </li>
                         </ul>
@@ -288,12 +293,12 @@
         </a>
         <!-- global js -->
         
-        <script src="{{ asset('admin/js/bootstrap.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('public/admin/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <!--livicons-->
-        <script src="{{ asset('admin/vendors/livicons/minified/raphael-min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('admin/vendors/livicons/minified/livicons-1.4.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('admin/js/josh.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('admin/js/metisMenu.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('public/admin/vendors/livicons/minified/raphael-min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('public/admin/vendors/livicons/minified/livicons-1.4.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('public/admin/js/josh.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('public/admin/js/metisMenu.js') }}" type="text/javascript"></script>
         
         <!-- end of global js -->
     </body>

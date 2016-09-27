@@ -31,7 +31,7 @@ if($key%3==0){
                     <h3>{{$service->post_title}}</h3>
                     <?php if(isset($service->post_featured_image)){?>
             
-                <img src="<?php echo asset($service->post_featured_image->med_path.$service->post_featured_image->med_name);?>" class="img-responsive" alt="" />
+                <img src="<?php echo asset('public/'.$service->post_featured_image->med_path.$service->post_featured_image->med_name);?>" class="img-responsive" alt="" />
             
             <?php }?>
                     <div class="caption">

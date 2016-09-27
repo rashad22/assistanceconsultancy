@@ -32,7 +32,7 @@
                 <!--main content-->
                 <div class="row">
                     <div class="the-box no-border">
-                        <form role="form" action="\update" method="post" enctype="multipart/form-data">
+                        <form role="form" action="{{ URL::to('update') }}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="<?php echo csrf_token();?>"/>
                         <input type="hidden" name="id" value="<?php echo $data['row']->post_id?>"/>
 
